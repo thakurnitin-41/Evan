@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Event } from '../types/event';
 import { Palette, Copy, Check, Sparkles, Image, Flame, Flower2, Utensils, ArrowLeft } from 'lucide-react';
+import { SafeImage } from './SafeImage';
 
 interface MoodboardStudioProps {
   event: Event;
@@ -49,10 +50,10 @@ export const MoodboardStudio: React.FC<MoodboardStudioProps> = ({ event, onNavig
       {/* 2. PRIMARY MOODBOARD IMAGE */}
       <div className="relative rounded-2xl overflow-hidden border border-[#3B333B] bg-[#29252A] group">
         <div className="relative h-80 sm:h-[400px] w-full overflow-hidden">
-          <img
+          <SafeImage
             src={event.concept.moodboardImage}
             alt={event.concept.title}
-            referrerPolicy="no-referrer"
+            fallbackTitle={event.concept.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#211721] via-transparent to-transparent opacity-90" />

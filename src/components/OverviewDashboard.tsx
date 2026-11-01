@@ -1,6 +1,7 @@
 import React from 'react';
 import { Event, TaskPriority } from '../types/event';
 import { VisualCountdown } from './VisualCountdown';
+import { SafeImage } from './SafeImage';
 import {
   Calendar,
   DollarSign,
@@ -61,10 +62,10 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
       {/* 1. HERO CONCEPT BANNER */}
       <div className="relative rounded-2xl overflow-hidden border border-[#3B333B] bg-[#29252A]">
         <div className="relative h-64 sm:h-80 w-full overflow-hidden">
-          <img
+          <SafeImage
             src={event.concept.moodboardImage}
             alt={event.concept.title}
-            referrerPolicy="no-referrer"
+            fallbackTitle={event.concept.title}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#211721] via-[#211721]/70 to-transparent" />

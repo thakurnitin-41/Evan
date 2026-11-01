@@ -23,7 +23,7 @@ export const SAMPLE_EVENTS: Event[] = [
       title: 'Fateh Royal Twilight',
       headline: 'Heritage grandeur soaked in warm amber candlelight and marigold gold.',
       description: 'An immersive celebration blending 17th-century Rajasthani architecture with refined modern editorial dining. Velvet drapery in aubergine and deep champagne frame open palace arches.',
-      moodboardImage: '/src/assets/images/elan_moodboard_palace_1793474323686.jpg',
+      moodboardImage: '/images/elan_moodboard_palace_1793474323686.jpg',
       colorPalette: [
         { name: 'Royal Aubergine', hex: '#211721', role: 'Dominant Canvas & Drapery' },
         { name: 'Palace Gold', hex: '#D8BC91', role: 'Accents & Brass Fixtures' },
@@ -111,7 +111,7 @@ export const SAMPLE_EVENTS: Event[] = [
       title: 'Midnight Eclipse Noir',
       headline: 'Dramatic city skyline silhouette with moody amber neon accents.',
       description: 'An intimate rooftop lounge transformation with dark charcoal lounge seating, amber light globes, and bespoke mixology.',
-      moodboardImage: '/src/assets/images/elan_moodboard_rooftop_1793474324352.jpg',
+      moodboardImage: '/images/elan_moodboard_rooftop_1793474324352.jpg',
       colorPalette: [
         { name: 'Charcoal Noir', hex: '#1C1917', role: 'Dominant Backdrop' },
         { name: 'Amber Filament', hex: '#F59E0B', role: 'Ambient Lighting' },
@@ -188,7 +188,7 @@ export const SAMPLE_EVENTS: Event[] = [
       title: 'Earth & Sun Harvest',
       headline: 'Golden hour warmth, unbleached linen, and botanical simplicity.',
       description: 'A zero-waste gathering celebrating local artisans with sun-dappled communal seating, terracotta planters, and wildflower arrangements.',
-      moodboardImage: '/src/assets/images/elan_moodboard_community_1793474324079.jpg',
+      moodboardImage: '/images/elan_moodboard_community_1793474324079.jpg',
       colorPalette: [
         { name: 'Muted Sage', hex: '#A7B49A', role: 'Dominant Canvas' },
         { name: 'Terracotta Clay', hex: '#C86D51', role: 'Ceramic & Signage Accents' },

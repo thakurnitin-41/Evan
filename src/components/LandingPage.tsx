@@ -1,6 +1,7 @@
 import React from 'react';
 import { Event, EventType } from '../types/event';
 import { Sparkles, Calendar, DollarSign, Users, ArrowRight, Shield, Layers, Sliders, CheckCircle2 } from 'lucide-react';
+import { SafeImage } from './SafeImage';
 
 interface LandingPageProps {
   sampleEvents: Event[];
@@ -22,10 +23,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <section className="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-12 pb-20">
         {/* Cinematic Backdrop Image with Overlay Scrim */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <img
-            src="/src/assets/images/elan_hero_wedding_1793474322640.jpg"
+          <SafeImage
+            src="/images/elan_hero_wedding_1793474322640.jpg"
             alt="Luxury Event Atmosphere"
-            referrerPolicy="no-referrer"
+            fallbackTitle="EVAN. Event Atmosphere"
             className="w-full h-full object-cover object-center opacity-35 scale-105 transform filter blur-[1px]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#211721] via-[#211721]/70 to-[#211721]/40" />
@@ -160,10 +161,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               className="group cursor-pointer rounded-2xl bg-[#29252A] border border-[#3B333B] hover:border-[#D8BC91] overflow-hidden transition-all hover:shadow-2xl flex flex-col"
             >
               <div className="relative h-48 overflow-hidden">
-                <img
+                <SafeImage
                   src={event.concept.moodboardImage}
                   alt={event.title}
-                  referrerPolicy="no-referrer"
+                  fallbackTitle={event.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#29252A] via-transparent to-transparent" />
