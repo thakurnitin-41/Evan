@@ -29,7 +29,7 @@ export const ElanCopilotDrawer: React.FC<ElanCopilotDrawerProps> = ({
     {
       id: 'm1',
       sender: 'assistant',
-      text: `Hello! I am ÉLAN Intelligence, your context-aware event strategist. I have analyzed "${event.title}" (${event.guestCount} guests, ${event.currency}${event.budget.toLocaleString()} budget). How can I optimize your plan today?`,
+      text: `Hello! I am EVAN. Intelligence, your context-aware event strategist. I have analyzed "${event.title}" (${event.guestCount} guests, ${event.currency}${event.budget.toLocaleString()} budget). How can I optimize your plan today?`,
     },
   ]);
   const [inputText, setInputText] = useState(initialQuery || '');
@@ -95,7 +95,7 @@ export const ElanCopilotDrawer: React.FC<ElanCopilotDrawerProps> = ({
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-[#D8BC91]" />
           <div>
-            <h2 className="text-base font-serif font-semibold text-[#F4EEE5]">ÉLAN Intelligence</h2>
+            <h2 className="text-base font-serif font-semibold text-[#F4EEE5]">EVAN. Intelligence</h2>
             <div className="text-[10px] text-[#A7B49A]">Context-aware plan strategist</div>
           </div>
         </div>

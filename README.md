@@ -1,8 +1,8 @@
-# ÉLAN — Premium AI Event Planning Platform
+# EVAN. — Premium AI Event Planning Platform
 
 > **Big moments. Thoughtfully made.**
 
-ÉLAN is a full-stack, AI-powered event planning application designed for luxury weddings, birthdays, anniversaries, and community celebrations. It combines high-touch aesthetic concept generation with context-aware budget management, living timelines, vendor matchbooks, guest rosters, and an intelligent copilot simulator.
+EVAN. is a full-stack, AI-powered event planning application designed for luxury weddings, birthdays, anniversaries, and community celebrations. It combines high-touch aesthetic concept generation with context-aware budget management, living timelines, vendor matchbooks, guest rosters, and an intelligent copilot simulator.
 
 ---
 
@@ -18,7 +18,7 @@
 4. **Living Timeline & Run-Sheet**: Gantt-style milestone tracker with owner assignment, priority badges, and drag-to-reschedule support.
 5. **Aesthetic Moodboard Studio**: Visual concept direction with moodboard previews, decor directions, and custom palettes.
 6. **Vendor Matchbook & Automated Enquiry**: AI-powered business email generator for venue and vendor enquiries based on guest dietary specs and event vibe.
-7. **ÉLAN Intelligence Copilot (What-If Simulator)**: Natural language prompt simulator allowing hosts to model scenario trade-offs (e.g. +30 guests, -15% budget cut, zero-waste transition).
+7. **EVAN. Intelligence Copilot (What-If Simulator)**: Natural language prompt simulator allowing hosts to model scenario trade-offs (e.g. +30 guests, -15% budget cut, zero-waste transition).
 
 ---
 
@@ -69,8 +69,8 @@
 ### 1. Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/your-username/elan-ai-event-planner.git
-cd elan-ai-event-planner
+git clone https://github.com/your-username/evan-ai-event-planner.git
+cd evan-ai-event-planner
 npm install
 ```
 
@@ -145,13 +145,13 @@ git init
 git add .
 
 # 3. Create your initial commit
-git commit -m "feat: complete full-stack ÉLAN AI Event Planner with Express backend & database layer"
+git commit -m "feat: complete full-stack EVAN. AI Event Planner with Express backend & database layer"
 
 # 4. Rename main branch
 git branch -M main
 
 # 5. Add your remote repository URL
-git remote add origin https://github.com/your-username/elan-ai-event-planner.git
+git remote add origin https://github.com/your-username/evan-ai-event-planner.git
 
 # 6. Push code to GitHub
 git push -u origin main

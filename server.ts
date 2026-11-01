@@ -32,7 +32,7 @@ async function startServer() {
   app.get('/api/health', (_req, res) => {
     res.json({
       status: 'online',
-      service: 'ÉLAN AI Event Planner Engine',
+      service: 'EVAN. AI Event Planner Engine',
       timestamp: new Date().toISOString(),
       db: db.getStats(),
     });
@@ -46,7 +46,7 @@ async function startServer() {
   // Export DB Backup endpoint
   app.get('/api/db/export', (_req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Content-Disposition', 'attachment; filename="elan_database_backup.json"');
+    res.setHeader('Content-Disposition', 'attachment; filename="evan_database_backup.json"');
     res.send(db.exportBackup());
   });
 
@@ -119,7 +119,7 @@ async function startServer() {
 
     if (isApiKeyPresent) {
       try {
-        const prompt = `You are ÉLAN's master event planner AI. Generate a comprehensive, highly realistic event plan based on this user brief:
+        const prompt = `You are EVAN.'s master event planner AI. Generate a comprehensive, highly realistic event plan based on this user brief:
 Title: "${input.title}"
 Event Type: ${input.type}
 Date: ${input.date}
@@ -307,7 +307,7 @@ Ensure sum of estimated costs equals around 90-95% of total budget ${input.budge
 
     if (isApiKeyPresent) {
       try {
-        const sysInstruction = `You are ÉLAN Intelligence, an elite AI event planner & financial strategist.
+        const sysInstruction = `You are EVAN. Intelligence, an elite AI event planner & financial strategist.
 Context:
 Event Title: "${event.title}" (${event.type})
 Date: ${event.date}, Location: ${event.location}
@@ -343,7 +343,7 @@ If no plan modification is requested (e.g. asking a question), leave "proposal":
         });
 
         const parsed = JSON.parse(response.text || '{}');
-        replyText = parsed.reply || 'Here is your ÉLAN plan analysis.';
+        replyText = parsed.reply || 'Here is your EVAN. plan analysis.';
         if (parsed.proposal) {
           proposal = {
             id: `prop-${Date.now()}`,
@@ -554,7 +554,7 @@ Our desired aesthetic direction is ${event.styleVibe}. Could you kindly confirm 
 Thank you for your time, and we look forward to hearing from you.
 
 Warm regards,
-Event Planning Team — ÉLAN`;
+Event Planning Team — EVAN.`;
     }
 
     res.json({ message });
@@ -577,7 +577,7 @@ Event Planning Team — ÉLAN`;
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`ÉLAN Server running at http://0.0.0.0:${PORT}`);
+    console.log(`EVAN. Server running at http://0.0.0.0:${PORT}`);
   });
 }
 

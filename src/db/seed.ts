@@ -1,6 +1,6 @@
 import { db } from './database';
 
-console.log('Seeding ÉLAN Events Database...');
+console.log('Seeding EVAN. Events Database...');
 const seededEvents = db.seed();
 console.log(`Database seeded successfully with ${seededEvents.length} events:`);
 seededEvents.forEach((evt) => {

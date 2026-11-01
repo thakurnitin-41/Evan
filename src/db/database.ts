@@ -12,7 +12,7 @@ const DATA_DIR = path.resolve(__dirname, '../../data');
 const DATA_FILE = path.join(DATA_DIR, 'events.json');
 
 /**
- * Database abstraction service for ÉLAN Event Planner backend.
+ * Database abstraction service for EVAN. Event Planner backend.
  * Provides persistence, CRUD operations, seeding, and backup features.
  */
 export class EventsDatabase {

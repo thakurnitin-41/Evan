@@ -63,7 +63,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             onClick={onGoHome}
             className="text-[#D8BC91] font-serif text-2xl font-semibold tracking-wider hover:text-[#E5C384] transition-colors whitespace-nowrap shrink-0 flex items-center gap-2 text-left"
           >
-            <span>ÉLAN</span>
+            <span>EVAN.</span>
             <span className="hidden sm:inline-block text-xs font-sans tracking-widest text-[#A7B49A] uppercase font-light">
               · Event Studio
             </span>

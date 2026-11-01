@@ -72,7 +72,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <span aria-hidden="true" className="text-gray-600">·</span>
             <span>Living Milestones</span>
             <span aria-hidden="true" className="text-gray-600">·</span>
-            <span>Context-Aware ÉLAN Intelligence</span>
+            <span>Context-Aware EVAN. Intelligence</span>
             <span aria-hidden="true" className="text-gray-600">·</span>
             <span>Zero AI Slop Guarantee</span>
           </div>
@@ -207,7 +207,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               Engineered for absolute plan integrity
             </h2>
             <p className="text-sm text-gray-400 mt-3">
-              How ÉLAN combines generative AI personalization with rigorous deterministic financial logic.
+              How EVAN. combines generative AI personalization with rigorous deterministic financial logic.
             </p>
           </div>
 
@@ -228,7 +228,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <h3 className="text-lg font-serif text-[#F4EEE5]">Living Milestones</h3>
               <p className="text-xs text-gray-400 leading-relaxed">
-                Date-aware task generator with dependencies and calendar tracking. If your event date shifts, ÉLAN recalculates target dates and flags scheduling conflicts.
+                Date-aware task generator with dependencies and calendar tracking. If your event date shifts, EVAN. recalculates target dates and flags scheduling conflicts.
               </p>
             </div>
 
@@ -236,7 +236,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div className="w-10 h-10 rounded-xl bg-[#E5C384]/10 flex items-center justify-center text-[#E5C384]">
                 <Sparkles className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-serif text-[#F4EEE5]">ÉLAN Intelligence Copilot</h3>
+              <h3 className="text-lg font-serif text-[#F4EEE5]">EVAN. Intelligence Copilot</h3>
               <p className="text-xs text-gray-400 leading-relaxed">
                 Context-aware conversational assistant powered by Gemini 3.8 Flash. Analyzes stored event data to simulate headcount changes, trim costs by 15%, or draft vendor enquiries.
               </p>
@@ -247,7 +247,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* FOOTER */}
       <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 border-t border-[#3B333B]/40">
-        <div className="font-serif text-[#D8BC91] text-lg">ÉLAN — Big moments. Thoughtfully made.</div>
+        <div className="font-serif text-[#D8BC91] text-lg">EVAN. — Big moments. Thoughtfully made.</div>
         <div className="mt-4 sm:mt-0 flex items-center gap-4">
           <span>Powered by Gemini 3.8 Flash</span>
           <span>·</span>
