@@ -1,0 +1,6 @@
+{
+  "name": "ÉLAN — Big moments. Thoughtfully made.",
+  "description": "Premium AI event-planning platform for weddings, birthdays, and community events with context-aware budget simulator, living timeline, and moodboard studio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
