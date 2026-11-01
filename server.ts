@@ -3,49 +3,14 @@ import { createServer as createViteServer } from 'vite';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { GoogleGenAI, Type } from '@google/genai';
-import { SAMPLE_EVENTS } from './src/data/sampleEvents.ts';
+import { GoogleGenAI } from '@google/genai';
+import { db } from './src/db/database.ts';
 import { Event, OnboardingInput, WhatIfProposal } from './src/types/event.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PORT = 3000;
-const DATA_FILE = path.join(__dirname, 'data', 'events.json');
-
-// Ensure data directory exists
-const dataDir = path.dirname(DATA_FILE);
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
-
-// Load or initialize events database
-function loadEvents(): Event[] {
-  try {
-    if (fs.existsSync(DATA_FILE)) {
-      const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    }
-  } catch (err) {
-    console.error('Failed reading events.json, falling back to SAMPLE_EVENTS:', err);
-  }
-  // Initialize with sample events
-  fs.writeFileSync(DATA_FILE, JSON.stringify(SAMPLE_EVENTS, null, 2), 'utf-8');
-  return SAMPLE_EVENTS;
-}
-
-function saveEvents(events: Event[]) {
-  try {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(events, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Failed to save events:', err);
-  }
-}
-
-let eventsStore: Event[] = loadEvents();
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 // Initialize Gemini SDK
 const ai = new GoogleGenAI({
@@ -61,54 +26,88 @@ async function startServer() {
   const app = express();
   app.use(express.json());
 
-  // API Routes
+  // System Health & Database API Routes
 
-  // 1. GET /api/events
-  app.get('/api/events', (_req, res) => {
-    res.json(eventsStore);
+  // Health check endpoint
+  app.get('/api/health', (_req, res) => {
+    res.json({
+      status: 'online',
+      service: 'ÉLAN AI Event Planner Engine',
+      timestamp: new Date().toISOString(),
+      db: db.getStats(),
+    });
   });
 
-  // 2. GET /api/events/:id
+  // Database Stats endpoint
+  app.get('/api/db/stats', (_req, res) => {
+    res.json(db.getStats());
+  });
+
+  // Export DB Backup endpoint
+  app.get('/api/db/export', (_req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', 'attachment; filename="elan_database_backup.json"');
+    res.send(db.exportBackup());
+  });
+
+  // Reset DB endpoint
+  app.post('/api/db/reset', (_req, res) => {
+    const events = db.seed();
+    res.json({ success: true, message: 'Database reset to sample events', count: events.length });
+  });
+
+  // Core Events CRUD API Routes
+
+  // 1. GET /api/events - List all events
+  app.get('/api/events', (_req, res) => {
+    res.json(db.getAll());
+  });
+
+  // 2. GET /api/events/:id - Get single event by ID
   app.get('/api/events/:id', (req, res) => {
-    const event = eventsStore.find((e) => e.id === req.params.id);
+    const event = db.getById(req.params.id);
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
     res.json(event);
   });
 
-  // 3. POST /api/events
+  // 3. POST /api/events - Create new event
   app.post('/api/events', (req, res) => {
     const newEvent: Event = req.body;
     if (!newEvent.id) {
       newEvent.id = `evt-${Date.now()}`;
     }
-    eventsStore = [newEvent, ...eventsStore.filter((e) => e.id !== newEvent.id)];
-    saveEvents(eventsStore);
-    res.json(newEvent);
+    const saved = db.save(newEvent);
+    res.json(saved);
   });
 
-  // 4. PUT /api/events/:id
+  // 4. PUT /api/events/:id - Update existing event
   app.put('/api/events/:id', (req, res) => {
     const id = req.params.id;
-    const updated: Event = req.body;
-    const index = eventsStore.findIndex((e) => e.id === id);
-    if (index === -1) {
+    const existing = db.getById(id);
+    if (!existing) {
       return res.status(404).json({ error: 'Event not found' });
     }
-    updated.updatedAt = new Date().toISOString();
-    eventsStore[index] = updated;
-    saveEvents(eventsStore);
-    res.json(updated);
+    const updated: Event = {
+      ...req.body,
+      id,
+      updatedAt: new Date().toISOString(),
+    };
+    const saved = db.save(updated);
+    res.json(saved);
   });
 
-  // 5. DELETE /api/events/:id
+  // 5. DELETE /api/events/:id - Delete event
   app.delete('/api/events/:id', (req, res) => {
-    const id = req.params.id;
-    eventsStore = eventsStore.filter((e) => e.id !== id);
-    saveEvents(eventsStore);
-    res.json({ success: true, message: 'Event deleted' });
+    const success = db.delete(req.params.id);
+    if (!success) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+    res.json({ success: true, message: 'Event deleted successfully' });
   });
+
+  // AI & Advanced Engine Routes
 
   // 6. POST /api/events/ai-generate: Create full plan from input brief
   app.post('/api/events/ai-generate', async (req, res) => {
@@ -289,9 +288,7 @@ Ensure sum of estimated costs equals around 90-95% of total budget ${input.budge
       runSheet: (generatedPlan.runSheet || []).map((rs, idx) => ({ ...rs, id: rs.id || `rs-${idx}` })),
     };
 
-    eventsStore = [newEvent, ...eventsStore];
-    saveEvents(eventsStore);
-
+    db.save(newEvent);
     res.json(newEvent);
   });
 
@@ -299,7 +296,7 @@ Ensure sum of estimated costs equals around 90-95% of total budget ${input.budge
   app.post('/api/events/:id/copilot', async (req, res) => {
     const eventId = req.params.id;
     const { prompt } = req.body;
-    const event = eventsStore.find((e) => e.id === eventId);
+    const event = db.getById(eventId);
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
@@ -446,9 +443,9 @@ If no plan modification is requested (e.g. asking a question), leave "proposal":
     res.json({ reply: replyText, proposal });
   });
 
-  // 8. POST /api/events/:id/integrity: Audit event integrity
+  // 8. GET /api/events/:id/integrity: Audit event integrity
   app.get('/api/events/:id/integrity', (req, res) => {
-    const event = eventsStore.find((e) => e.id === req.params.id);
+    const event = db.getById(req.params.id);
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
@@ -513,7 +510,7 @@ If no plan modification is requested (e.g. asking a question), leave "proposal":
   // 9. POST /api/events/:id/enquiry: Draft vendor enquiry email
   app.post('/api/events/:id/enquiry', async (req, res) => {
     const { vendorName, category } = req.body;
-    const event = eventsStore.find((e) => e.id === req.params.id);
+    const event = db.getById(req.params.id);
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
